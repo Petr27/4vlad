@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+	<title>4vlad</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #1f4037, #99f2c8); 
+            color: #333;
+        }
+        .flats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 2em; 
+        }
+        .flat {
+            box-sizing: border-box;
+            height: 25%;
+            width: 22%;
+            margin-bottom: 2em; 
+            background-color: #fff; 
+            border-radius: 5px; 
+            padding: 1em; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+            transition: all .3s ease; 
+        }
+        .flat:hover {
+            transform: scale(1.03); 
+        }
+        .flat img {
+            max-width: 100%; 
+            height: auto;
+            display: block;
+        }
+        .flat h2 {
+            font-size: 1.2em; 
+            margin: 0.5em 0;
+        }
+    </style>
+</head>
+
+<body>
+	<div class="flats">
+        {% for flat in flats %}
+
+		<div class="flat">
+            <img src={{ flat.get('image_url') }} alt="Flat Image">
+			<h2>{{ flat.get('title') }}</h2>
+		</div>
+
+        {% endfor %}
+	</div>
+
+</body>
+</html>

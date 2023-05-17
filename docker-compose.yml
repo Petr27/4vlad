@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  flask:
+    build: ./4vlad
+    restart: always
+    command: >
+      sh -c "python manage.py create_db &&
+             python manage.py load_flats &&
+             python manage.py run -h 0.0.0.0 -p 8080"
+    volumes:
+      - ./4vlad/:/usr/src/app/
+    ports:
+      - "8080:8080"
+    environment:
+      - FLASK_APP=project/app.py
+      - DATABASE_URL=postgresql+psycopg2://1234:1234@db:5432/scrapy_db
+    depends_on:
+      - db
+  db:
+    image: postgres:14.5-alpine
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=1234
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=scrapy_db
+      - POSTGRES_HOST=db
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8000:8080"
+volumes:
+  postgres_data:
